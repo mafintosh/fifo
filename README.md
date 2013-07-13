@@ -1,6 +1,6 @@
-# fifo
+# FIFO
 
-javascript fifo queue implemented using a linked-list
+Javascript FIFO queue implemented using a double linked-list
 
 	npm install fifo
 
