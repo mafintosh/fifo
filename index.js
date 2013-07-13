@@ -16,10 +16,11 @@ var FIFO = function() {
 };
 
 FIFO.prototype.remove = function(node) {
+	if (!node) return;
 	if (node !== node.next || this.node === node) this.length--;
 	node.prev.link(node.next);
 	if (node === this.node) this.node = node.next === node ? null : node.next;
-	return node.value;
+	return node.link(node).value;
 };
 
 FIFO.prototype.unshift = function(value) {
