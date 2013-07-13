@@ -1,0 +1,9 @@
+{
+  "name": "fifo",
+  "version": "0.1.0",
+  "repository": "git://github.com/mafintosh/fifo",
+  "license": "MIT",
+  "description": "FIFO queue",
+  "keywords": ['queue', 'linked', 'list', 'fifo', 'data', 'structure'],
+  "author": "Mathias Buus Madsen <mathiasbuus@gmail.com>"
+}
