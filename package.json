@@ -4,6 +4,6 @@
   "repository": "git://github.com/mafintosh/fifo",
   "license": "MIT",
   "description": "FIFO queue",
-  "keywords": ['queue', 'linked', 'list', 'fifo', 'data', 'structure'],
+  "keywords": ["queue", "linked", "list", "fifo", "data", "structure"],
   "author": "Mathias Buus Madsen <mathiasbuus@gmail.com>"
 }
