@@ -6,22 +6,23 @@ Javascript FIFO queue implemented using a double linked-list
 
 # Usage is simple
 
-	var fifo = require('fifo');
+``` js
+var fifo = require('fifo');
 
-	fifo.push('hello');
-	fifo.push('world');
+fifo.push('hello');
+fifo.push('world');
 
-	console.log(fifo.first()); // prints hello
-	console.log(fifo.last());  // prints world
+console.log(fifo.first()); // prints hello
+console.log(fifo.last());  // prints world
 
-	console.log(fifo.shift()); // prints hello
-	console.log(fifo.shift()); // prints world
+console.log(fifo.shift()); // prints hello
+console.log(fifo.shift()); // prints world
 
-	var node = fifo.push('meh');
+var node = fifo.push('meh');
 
-	fifo.remove(node);     // remove 'meh' from the stack
-	fifo.unshift('hello'); // insert at the beginning
-
+fifo.remove(node);     // remove 'meh' from the stack
+fifo.unshift('hello'); // insert at the beginning
+```
 
 `fifo` uses a linked list behind the scene so `push`, `shift`, `unshift`, and `remove` all run in O(1)
 
