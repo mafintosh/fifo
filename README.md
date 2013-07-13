@@ -23,7 +23,7 @@ Javascript FIFO queue implemented using a double linked-list
 	fifo.unshift('hello'); // insert at the beginning
 
 
-`fifo` uses a linked list behind the scene so `push`, `shift` and `remove` all run in O(1)
+`fifo` uses a linked list behind the scene so `push`, `shift`, `unshift`, and `remove` all run in O(1)
 
 # License
 
