@@ -15,6 +15,15 @@ var FIFO = function() {
 	this.length = 0;
 };
 
+FIFO.prototype.set = function(node, value) {
+	node.value = value;
+	return node;
+};
+
+FIFO.prototype.get = function(node) {
+	return node.value;
+};
+
 FIFO.prototype.remove = function(node) {
 	if (!node) return;
 	if (node !== node.next || this.node === node) this.length--;
