@@ -33,7 +33,7 @@ FIFO.prototype.remove = function(node) {
 	node.list = null;
 	node.prev.link(node.next);
 	if (node === this.node) this.node = node.next === node ? null : node.next;
-	return node.value;
+	return node.link(node).value;
 };
 
 FIFO.prototype.unshift = function(value) {
@@ -49,11 +49,11 @@ FIFO.prototype.push = function(value) {
 	return node;
 };
 
-FIFO.prototype.first = function() {
+FIFO.prototype.bottom = function() {
 	return this.node && this.node.value;
 };
 
-FIFO.prototype.last = function() {
+FIFO.prototype.top = function() {
 	return this.node && this.node.prev.value;
 };
 
