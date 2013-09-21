@@ -49,11 +49,11 @@ FIFO.prototype.push = function(value) {
 	return node;
 };
 
-FIFO.prototype.bottom = function() {
+FIFO.prototype.first = function() {
 	return this.node && this.node.value;
 };
 
-FIFO.prototype.top = function() {
+FIFO.prototype.last = function() {
 	return this.node && this.node.prev.value;
 };
 
