@@ -1,9 +1,22 @@
 {
   "name": "fifo",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "repository": "git://github.com/mafintosh/fifo",
   "license": "MIT",
+  "scripts": {
+    "test": "tap test.js"
+  },
   "description": "FIFO queue",
-  "keywords": ["queue", "linked", "list", "fifo", "data", "structure"],
-  "author": "Mathias Buus Madsen <mathiasbuus@gmail.com>"
+  "keywords": [
+    "queue",
+    "linked",
+    "list",
+    "fifo",
+    "data",
+    "structure"
+  ],
+  "author": "Mathias Buus Madsen <mathiasbuus@gmail.com>",
+  "devDependencies": {
+    "tap": "~0.4.13"
+  }
 }
