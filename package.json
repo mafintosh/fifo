@@ -1,6 +1,6 @@
 {
   "name": "fifo",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "repository": "git://github.com/mafintosh/fifo",
   "license": "MIT",
   "description": "FIFO queue",
