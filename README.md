@@ -7,7 +7,7 @@ Javascript FIFO queue implemented using a double linked-list
 # Usage is simple
 
 ``` js
-var fifo = require('fifo');
+var fifo = require('fifo')();
 
 fifo.push('hello');
 fifo.push('world');
