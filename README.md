@@ -2,7 +2,9 @@
 
 Javascript FIFO queue implemented using a double linked-list
 
-	npm install fifo
+```
+npm install fifo
+```
 
 # Usage is simple
 
