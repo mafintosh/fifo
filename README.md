@@ -6,6 +6,8 @@ Javascript FIFO queue implemented using a double linked-list
 npm install fifo
 ```
 
+[![build status](http://img.shields.io/travis/mafintosh/fifo.svg?style=flat)](http://travis-ci.org/mafintosh/fifo)
+
 # Usage is simple
 
 ``` js
