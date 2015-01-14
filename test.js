@@ -1,4 +1,4 @@
-var test = require('tap').test;
+var test = require('tape');
 var FIFO = require('./');
 
 test('basic ops', function(t){

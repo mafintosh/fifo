@@ -1,10 +1,10 @@
 {
   "name": "fifo",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "repository": "git://github.com/mafintosh/fifo",
   "license": "MIT",
   "scripts": {
-    "test": "tap test.js"
+    "test": "tape test.js"
   },
   "description": "FIFO queue",
   "keywords": [
@@ -17,6 +17,6 @@
   ],
   "author": "Mathias Buus Madsen <mathiasbuus@gmail.com>",
   "devDependencies": {
-    "tap": "~0.4.13"
+    "tape": "^3.0.3"
   }
 }
