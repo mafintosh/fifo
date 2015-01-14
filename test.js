@@ -28,3 +28,19 @@ test('basic ops', function(t){
 
   t.end();
 });
+
+test('toArray', function(t) {
+  var fifo = new FIFO();
+
+  fifo.push('foo');
+  fifo.push('bar');
+  fifo.push('baz');
+
+  var list = fifo.toArray();
+
+  t.equal(list.length, 3);
+  t.equal(list[0], 'foo');
+  t.equal(list[1], 'bar');
+  t.equal(list[2], 'baz');
+  t.end();
+});

@@ -65,4 +65,16 @@ FIFO.prototype.pop = function() {
 	return this.node && this.remove(this.node.prev);
 };
 
+FIFO.prototype.toArray = function() {
+	var list = [];
+	var node = this.node;
+	var first = node;
+	while (node) {
+		list.push(node.value);
+		node = node.next;
+		if (node === first) return list;
+	}
+	return list;
+};
+
 module.exports = FIFO;
