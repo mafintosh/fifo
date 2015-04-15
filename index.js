@@ -65,6 +65,18 @@ FIFO.prototype.pop = function() {
   return this.node && this.remove(this.node.prev)
 }
 
+FIFO.prototype.isEmpty = function() {
+  return (this.length === 0 || this.node === null);
+}
+
+FIFO.prototype.removeAll = function() {
+  if (this.length  !== 0 && this.node !== null) {
+    this.length = 0;
+    this.node = null;
+  }
+  return true;
+}
+
 FIFO.prototype.toArray = function() {
   var list = []
   var node = this.node
