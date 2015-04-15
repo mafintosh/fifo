@@ -26,6 +26,13 @@ var node = fifo.push('meh');
 
 fifo.remove(node);     // remove 'meh' from the stack
 fifo.unshift('hello'); // insert at the beginning
+
+fifo.removeAll();		// Clear stack
+
+if (!fifo.isEmpty()) {
+	fifo.shift();
+}
+
 ```
 
 `fifo` uses a linked list behind the scene so `push`, `shift`, `unshift`, and `remove` all run in O(1)
