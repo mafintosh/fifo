@@ -29,7 +29,7 @@ fifo.unshift('hello'); // insert at the beginning
 
 fifo.removeAll();		// Clear stack
 
-if (!fifo.isEmpty()) {
+if (!fifo.isEmpty()) {	// Check if stack is empty
 	fifo.shift();
 }
 
