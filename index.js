@@ -66,15 +66,14 @@ FIFO.prototype.pop = function() {
 }
 
 FIFO.prototype.isEmpty = function() {
-  return (this.length === 0 || this.node === null);
+  return this.length === 0 || this.node === null
 }
 
 FIFO.prototype.removeAll = function() {
-  if (this.length  !== 0 && this.node !== null) {
-    this.length = 0;
-    this.node = null;
+  if (this.length !== 0 && this.node !== null) {
+    this.length = 0
+    this.node = null
   }
-  return true;
 }
 
 FIFO.prototype.toArray = function() {
