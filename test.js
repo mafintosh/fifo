@@ -3,6 +3,8 @@ var FIFO = require('./')
 
 test('basic ops', function(t){
   var fifo = new FIFO()
+  t.equal(fifo.isEmpty(), true);
+  
   fifo.push('foo')
   t.equal(fifo.length, 1)
   t.equal(fifo.first(), 'foo')
@@ -25,6 +27,17 @@ test('basic ops', function(t){
   t.equal(fifo.shift(), null)
   t.equal(fifo.first(), null)
   t.equal(fifo.last(), null)
+
+
+  fifo.push('foo');
+  fifo.push('bar');
+  fifo.push('foo1');
+  t.equal(fifo.isEmpty(), false);
+  fifo.removeAll();
+  t.equal(fifo.length, 0);
+  t.equal(fifo.first(), null);
+  t.equal(fifo.last(), null);
+
 
   t.end()
 })
