@@ -22,6 +22,16 @@ FIFO.prototype.set = function (node, value) {
   return node
 }
 
+FIFO.prototype.next = function (node) {
+  if (!node) return this.node
+  return node.next === this.node ? null : node.next
+}
+
+FIFO.prototype.prev = function (node) {
+  if (!node) return this.node
+  return node === this.node ? null : node.prev
+}
+
 FIFO.prototype.get = function (node) {
   if (!node || node.list !== this) return null
   return node.value
@@ -41,7 +51,15 @@ FIFO.prototype.unshift = function (value) {
 }
 
 FIFO.prototype.push = function (value) {
-  var node = new Node(this, value)
+  return this.add(new Node(this, value))
+}
+
+FIFO.prototype.bump = function (node) {
+  this.remove(node)
+  this.add(node)
+}
+
+FIFO.prototype.add = function (node) {
   this.length++
   if (!this.node) return this.node = node
   this.node.prev.link(node)
@@ -69,21 +87,24 @@ FIFO.prototype.isEmpty = function () {
   return this.length === 0 || this.node === null
 }
 
-FIFO.prototype.removeAll = function () {
+FIFO.prototype.removeAll =
+FIFO.prototype.clear = function () {
   if (this.length !== 0 && this.node !== null) {
     this.length = 0
     this.node = null
   }
 }
 
+FIFO.prototype.forEach = function (fn) {
+  for (var node = this.node; node; node = this.next(node)) {
+    fn(node.value, node)
+  }
+}
+
 FIFO.prototype.toArray = function () {
   var list = []
-  var node = this.node
-  var first = node
-  while (node) {
+  for (var node = this.node; node; node = this.next(node)) {
     list.push(node.value)
-    node = node.next
-    if (node === first) return list
   }
   return list
 }

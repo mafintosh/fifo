@@ -1,9 +1,9 @@
 var test = require('tape')
 var FIFO = require('./')
 
-test('basic ops', function (t){
+test('basic ops', function (t) {
   var fifo = FIFO()
-  t.equal(fifo.isEmpty(), true);
+  t.equal(fifo.isEmpty(), true)
 
   fifo.push('foo')
   t.equal(fifo.length, 1)
@@ -53,5 +53,33 @@ test('toArray', function (t) {
   t.equal(list[0], 'foo')
   t.equal(list[1], 'bar')
   t.equal(list[2], 'baz')
+  t.end()
+})
+
+test('iteration', function (t) {
+  var fifo = FIFO()
+
+  fifo.push('foo')
+  fifo.push('bar')
+  fifo.push('baz')
+
+  var expected = fifo.toArray()
+
+  for (var node = fifo.node; node; node = fifo.next(node)) {
+    t.same(node.value, expected.shift())
+  }
+
+  t.end()
+})
+
+test('bump', function (t) {
+  var fifo = FIFO()
+
+  var node = fifo.push('foo')
+  fifo.push('bar')
+  fifo.push('baz')
+  fifo.bump(node)
+
+  t.same(fifo.toArray(), ['bar', 'baz', 'foo'])
   t.end()
 })

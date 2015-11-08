@@ -1,22 +1,20 @@
 {
   "name": "fifo",
   "version": "2.1.0",
-  "repository": "git://github.com/mafintosh/fifo",
-  "license": "MIT",
-  "scripts": {
-    "test": "tape test.js"
-  },
-  "description": "FIFO queue",
-  "keywords": [
-    "queue",
-    "linked",
-    "list",
-    "fifo",
-    "data",
-    "structure"
-  ],
-  "author": "Mathias Buus Madsen <mathiasbuus@gmail.com>",
+  "description": "FIFO queue implemented using a double linked-list",
+  "main": "index.js",
+  "dependencies": {},
   "devDependencies": {
-    "tape": "^3.0.3"
-  }
+    "tape": "^4.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mafintosh/fifo.git"
+  },
+  "author": "Mathias Buus (@mafintosh)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mafintosh/fifo/issues"
+  },
+  "homepage": "https://github.com/mafintosh/fifo"
 }
