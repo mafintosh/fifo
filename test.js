@@ -80,6 +80,20 @@ test('bump', function (t) {
   fifo.push('baz')
   fifo.bump(node)
 
+  t.same(fifo.length, 3)
   t.same(fifo.toArray(), ['bar', 'baz', 'foo'])
+  t.end()
+})
+
+test('bump twice', function (t) {
+  var fifo = FIFO()
+
+  var node = fifo.push('bar')
+  fifo.push('baz')
+  fifo.bump(node)
+  fifo.bump(node)
+
+  t.same(fifo.length, 2)
+  t.same(fifo.toArray(), ['baz', 'bar'])
   t.end()
 })

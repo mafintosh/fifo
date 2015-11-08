@@ -61,6 +61,7 @@ FIFO.prototype.bump = function (node) {
 
 FIFO.prototype.add = function (node) {
   this.length++
+  if (!node.list) node.list = this
   if (!this.node) return this.node = node
   this.node.prev.link(node)
   node.link(this.node)
