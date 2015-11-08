@@ -1,8 +1,8 @@
 var test = require('tape')
 var FIFO = require('./')
 
-test('basic ops', function(t){
-  var fifo = new FIFO()
+test('basic ops', function (t){
+  var fifo = FIFO()
   t.equal(fifo.isEmpty(), true);
 
   fifo.push('foo')
@@ -40,8 +40,8 @@ test('basic ops', function(t){
   t.end()
 })
 
-test('toArray', function(t) {
-  var fifo = new FIFO()
+test('toArray', function (t) {
+  var fifo = FIFO()
 
   fifo.push('foo')
   fifo.push('bar')

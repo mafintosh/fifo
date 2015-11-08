@@ -1,33 +1,33 @@
-var Node = function(list, val) {
+function Node (list, val) {
   this.prev = this.next = this
   this.value = val
   this.list = list
 }
 
-Node.prototype.link = function(next) {
+Node.prototype.link = function (next) {
   this.next = next
   next.prev = this
   return next
 }
 
-var FIFO = function() {
+function FIFO () {
   if (!(this instanceof FIFO)) return new FIFO()
   this.node = null
   this.length = 0
 }
 
-FIFO.prototype.set = function(node, value) {
+FIFO.prototype.set = function (node, value) {
   if (!node || node.list !== this) return null
   node.value = value
   return node
 }
 
-FIFO.prototype.get = function(node) {
+FIFO.prototype.get = function (node) {
   if (!node || node.list !== this) return null
   return node.value
 }
 
-FIFO.prototype.remove = function(node) {
+FIFO.prototype.remove = function (node) {
   if (!node || node.list !== this) return null
   this.length--
   node.list = null
@@ -36,11 +36,11 @@ FIFO.prototype.remove = function(node) {
   return node.link(node).value
 }
 
-FIFO.prototype.unshift = function(value) {
+FIFO.prototype.unshift = function (value) {
   return this.node = this.push(value)
 }
 
-FIFO.prototype.push = function(value) {
+FIFO.prototype.push = function (value) {
   var node = new Node(this, value)
   this.length++
   if (!this.node) return this.node = node
@@ -49,34 +49,34 @@ FIFO.prototype.push = function(value) {
   return node
 }
 
-FIFO.prototype.first = function() {
+FIFO.prototype.first = function () {
   return this.node && this.node.value
 }
 
-FIFO.prototype.last = function() {
+FIFO.prototype.last = function () {
   return this.node && this.node.prev.value
 }
 
-FIFO.prototype.shift = function() {
+FIFO.prototype.shift = function () {
   return this.node && this.remove(this.node)
 }
 
-FIFO.prototype.pop = function() {
+FIFO.prototype.pop = function () {
   return this.node && this.remove(this.node.prev)
 }
 
-FIFO.prototype.isEmpty = function() {
+FIFO.prototype.isEmpty = function () {
   return this.length === 0 || this.node === null
 }
 
-FIFO.prototype.removeAll = function() {
+FIFO.prototype.removeAll = function () {
   if (this.length !== 0 && this.node !== null) {
     this.length = 0
     this.node = null
   }
 }
 
-FIFO.prototype.toArray = function() {
+FIFO.prototype.toArray = function () {
   var list = []
   var node = this.node
   var first = node
