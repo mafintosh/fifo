@@ -1,6 +1,6 @@
 {
   "name": "fifo",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "FIFO queue implemented using a double linked-list",
   "main": "index.js",
   "dependencies": {},
