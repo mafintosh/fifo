@@ -95,6 +95,18 @@ Moves a node to the end of the list
 
 Clears the list.
 
+#### `fifo.lock()`
+
+Sets the list 'locked' property to true. Doesn't actually stop any operations.
+
+#### `fifo.unlock()`
+
+Sets the list 'locked' property to false
+
+#### `fifo.isLocked()`
+
+Returns the value of the 'locked' property
+
 #### `fifo.forEach(fn)`
 
 Iterate over all values in the list. Calls the function with `value, node`.
