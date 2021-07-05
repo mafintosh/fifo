@@ -12,6 +12,9 @@
     "url": "https://github.com/mafintosh/fifo.git"
   },
   "author": "Mathias Buus (@mafintosh)",
+  "contributors": [
+    "Gabriel Castilho <castilho.gabriel14@gmail.com>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mafintosh/fifo/issues"
