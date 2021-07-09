@@ -111,6 +111,19 @@ for (var node = fifo.node; node; node = fifo.next(node)) {
 
 Optionally you can call `fifo.forEach(fn)` which does the above internally.
 
+## Async Iteration
+
+The list can also be iterated using a for await...of using the following loop
+
+``` js
+for await (var node of fifo) {
+  console.log('value is', node.value)
+}
+```
+
+This will create an infinite loop that is executed whenever a value is added
+to the list
+
 ## License
 
 MIT
