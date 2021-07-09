@@ -14,6 +14,7 @@ function FIFO () {
   if (!(this instanceof FIFO)) return new FIFO()
   this.node = null
   this.length = 0
+  this.locked = false
 }
 
 FIFO.prototype.set = function (node, value) {
@@ -110,6 +111,18 @@ FIFO.prototype.toArray = function () {
     list.push(node.value)
   }
   return list
+}
+
+FIFO.prototype.isLocked = function () {
+  return this.locked
+}
+
+FIFO.prototype.lock = function () {
+  this.locked = true
+}
+
+FIFO.prototype.unlock = function () {
+  this.locked = false
 }
 
 module.exports = FIFO

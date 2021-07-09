@@ -97,3 +97,16 @@ test('bump twice', function (t) {
   t.same(fifo.toArray(), ['baz', 'bar'])
   t.end()
 })
+
+
+test('lock ops', function (t) {
+  var fifo = FIFO()
+  t.equal(fifo.isLocked(), false)
+
+  fifo.lock()
+  t.equal(fifo.isLocked(), true)
+  
+  fifo.unlock()
+  t.equal(fifo.isLocked(), false)
+  t.end()
+})
