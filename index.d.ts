@@ -14,40 +14,40 @@ declare function FIFO<T = any>(): FIFO<T>
 
 declare class FIFO<T = any> {
   /** Contains the first node on the list */
-  node: Node<T>
+  node: null|Node<T>
 
   /** Number of nodes in the list */
   length: number
 
   /** Sets the value of a node */
-  set(node: Node<T>, value: T): null|Node<T>
+  set(node: null|Node<T>, value: T): null|Node<T>
 
   /**
    * Returns the next node relative to the node you pass. If the node was the
    * last node in the list `null` is returned
    */
-  next(node: Node<T>): null|Node<T>
+  next(node?: null|Node<T>): null|Node<T>
 
   /**
    * Returns the previous node relative to the node you pass. If the node was
    * the first node in the list null is returned
    */
-  prev(node: Node<T>): null|Node<T>
+  prev(node?: null|Node<T>): null|Node<T>
 
   /** Returns the value of the node */
-  get(node: Node<T>): null|T
+  get(node?: null|Node<T>): null|T
 
   /** Removes the node and returns the value */
-  remove(node: Node<T>): null|T
+  remove(node?: null|Node<T>): null|T
 
   /** Inserts a value at the beginning of the list */
-  unshift(value: T): ReturnType<this['push']>
+  unshift(value: T): Node<T>
 
   /**
    * Push a new value to the end of the list. Returns a node that contains this
    * value. The value can be accessed by accessing `node.value`
    */
-  push(value: T): ReturnType<this['add']>
+  push(value: T): Node<T>
 
   /** Moves a node to the end of the list */
   bump(node: Node<T>): boolean
@@ -62,10 +62,10 @@ declare class FIFO<T = any> {
   last(): null|T
 
   /** Removes the first node and returns the value */
-  shift(): null|ReturnType<this['remove']>
+  shift(): null|Node<T>
 
   /** Removes the last node and returns the value */
-  pop(): null|ReturnType<this['remove']>
+  pop(): null|Node<T>
 
   /** Returns whether the list is empty */
   isEmpty(): boolean
