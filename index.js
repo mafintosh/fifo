@@ -13,6 +13,7 @@ Node.prototype.link = function (next) {
 function FIFO () {
   if (!(this instanceof FIFO)) return new FIFO()
   this.node = null
+  this.asyncIterator = null
   this.length = 0
 }
 
@@ -64,9 +65,13 @@ FIFO.prototype.bump = function (node) {
 FIFO.prototype.add = function (node) {
   this.length++
   if (!node.list) node.list = this
-  if (!this.node) return this.node = node
-  this.node.prev.link(node)
-  node.link(this.node)
+  if (this.node) {
+    this.node.prev.link(node)
+    node.link(this.node)
+  } else {
+    this.node = node
+    if (this.asyncIterator) this.asyncIterator.consume()
+  }
   return node
 }
 
@@ -110,6 +115,59 @@ FIFO.prototype.toArray = function () {
     list.push(node.value)
   }
   return list
+}
+
+FIFO.prototype[Symbol.asyncIterator] = function () {
+  if (this.asyncIterator) return this.asyncIterator
+  return this.asyncIterator = new FifoAsyncIterator(this)
+}
+
+function createIterResult(value, done) {
+  return { value, done }
+}
+
+function FifoAsyncIterator(fifo) {
+  if (!(this instanceof FifoAsyncIterator)) return new FifoAsyncIterator()
+  this.fifo = fifo
+  this.unconsumedPromises = new FIFO()
+  this.finished = false
+}
+
+FifoAsyncIterator.prototype.next = function () {
+  if (this.finished) return Promise.resolve(createIterResult(undefined, true))
+  var node = this.fifo.node
+  if (node) {
+    this.fifo.remove(node)
+    return Promise.resolve(createIterResult(node.value, false))
+  } else {
+    return new Promise((resolve, reject) => {
+      this.unconsumedPromises.push({ resolve, reject })
+    })
+  }
+}
+
+FifoAsyncIterator.prototype.return = function () {
+  this.finished = true
+  this.fifo.iterator = null
+
+  for (
+    var node = this.unconsumedPromises.node;
+    node;
+    node = this.unconsumedPromises.next(node)
+  ) {
+    node.value.resolve(createIterResult(undefined, true))
+  }
+
+  return Promise.resolve(createIterResult(undefined, true))
+}
+
+FifoAsyncIterator.prototype.consume = function () {
+  if (this.finished) return
+  var promise = this.unconsumedPromises.shift()
+  if (promise && this.fifo.node) {
+    var value = this.fifo.shift()
+    promise.resolve(createIterResult(value, false))
+  }
 }
 
 module.exports = FIFO

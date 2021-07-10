@@ -12,9 +12,13 @@ declare class Node<T = any> {
 /** Create a new instance */
 declare function FIFO<T = any>(): FIFO<T>
 
-declare class FIFO<T = any> {
+declare class FIFO<T = any> implements AsyncIterable<T> {
+  [Symbol.asyncIterator](): FifoAsyncIterator<T>
+
   /** Contains the first node on the list */
   node: null|Node<T>
+
+  asyncIterator: null|FifoAsyncIterator<T>
 
   /** Number of nodes in the list */
   length: number
@@ -83,4 +87,40 @@ declare class FIFO<T = any> {
 
   /** Converts the list to an array and returns it */
   toArray(): T[]
+}
+
+type PromiseExecutor<T> = {
+  resolve: (value: T | PromiseLike<T>) => void,
+  reject: (reason?: unknown) => void
+}
+
+declare class FifoAsyncIterator<T> implements AsyncIterator<T, void> {
+  /** Reference to the fifo being iterated */
+  fifo: FIFO<T>
+
+  /** Queue of promises already returned by `next` waiting to be resolved */
+  unresolvedPromises: FIFO<PromiseExecutor<IteratorResult<T>>>
+
+  /**
+   * If the iterator is finished. A finished iterator will return no more values
+   */
+  finished: boolean
+
+  constructor(fifo: FIFO<T>)
+
+  /**
+   * Returns a promise that resolves with the first value of the list. If the
+   * list has a value, the promise will be resolved immediately, otherwise
+   * it will be resolved when a new value is available
+   */
+  next(): Promise<IteratorResult<T, any>>
+
+  /** Terminates iterator execution, preventing new values from being added */
+  return(): Promise<IteratorYieldResult<T> | IteratorReturnResult<void>>
+
+  /**
+   * Resolves the first promise with the first value of the list. If
+   * there are no promises on the list then nothing is done
+   */
+  consume(): void
 }

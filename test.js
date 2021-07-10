@@ -97,3 +97,49 @@ test('bump twice', function (t) {
   t.same(fifo.toArray(), ['baz', 'bar'])
   t.end()
 })
+
+test('async iteration', async function (t) {
+  var fifo = FIFO()
+  fifo.push('bar')
+  fifo.unshift('foo')
+
+  var iterator = fifo[Symbol.asyncIterator]()
+  var promise = iterator.next()
+  t.true(promise instanceof Promise)
+  var result = await promise
+  t.equal(result.value, 'foo')
+  t.equal(result.done, false)
+
+  promise = iterator.next()
+  result = await promise
+  t.equal(result.value, 'bar')
+  t.equal(result.done, false)
+
+  fifo.push('baz')
+  promise = iterator.next()
+  result = await promise
+  t.equal(result.value, 'baz')
+  t.equal(result.done, false)
+
+  fifo.unshift('foo')
+  promise = iterator.next()
+  result = await promise
+  t.equal(result.value, 'foo')
+  t.equal(result.done, false)
+
+  fifo.push(null)
+  promise = iterator.next()
+  result = await promise
+  t.equal(result.value, null)
+  t.equal(result.done, false)
+
+  fifo.asyncIterator.return()
+  fifo.push('bar')
+  promise = iterator.next()
+  result = await promise
+  t.equal(result.value, undefined)
+  t.equal(result.done, true)
+  t.equal(fifo.node.value, 'bar')
+
+  t.end()
+})
