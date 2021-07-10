@@ -13,7 +13,7 @@ Node.prototype.link = function (next) {
 function FIFO () {
   if (!(this instanceof FIFO)) return new FIFO()
   this.node = null
-  this.iterator = null
+  this.asyncIterator = null
   this.length = 0
 }
 
@@ -70,7 +70,7 @@ FIFO.prototype.add = function (node) {
     node.link(this.node)
   } else {
     this.node = node
-    if (this.iterator) this.iterator.consume()
+    if (this.asyncIterator) this.asyncIterator.consume()
   }
   return node
 }
@@ -118,21 +118,22 @@ FIFO.prototype.toArray = function () {
 }
 
 FIFO.prototype[Symbol.asyncIterator] = function () {
-  return this.iterator = new Iterator(this)
+  if (this.asyncIterator) return this.asyncIterator
+  return this.asyncIterator = new FifoAsyncIterator(this)
 }
 
 function createIterResult(value, done) {
   return { value, done }
 }
 
-function Iterator(fifo) {
-  if (!(this instanceof Iterator)) return new Iterator()
+function FifoAsyncIterator(fifo) {
+  if (!(this instanceof FifoAsyncIterator)) return new FifoAsyncIterator()
   this.fifo = fifo
   this.unconsumedPromises = new FIFO()
   this.finished = false
 }
 
-Iterator.prototype.next = function () {
+FifoAsyncIterator.prototype.next = function () {
   if (this.finished) return Promise.resolve(createIterResult(undefined, true))
   var node = this.fifo.node
   if (node) {
@@ -145,7 +146,7 @@ Iterator.prototype.next = function () {
   }
 }
 
-Iterator.prototype.return = function () {
+FifoAsyncIterator.prototype.return = function () {
   this.finished = true
   this.fifo.iterator = null
 
@@ -160,7 +161,7 @@ Iterator.prototype.return = function () {
   return Promise.resolve(createIterResult(undefined, true))
 }
 
-Iterator.prototype.consume = function () {
+FifoAsyncIterator.prototype.consume = function () {
   if (this.finished) return
   var promise = this.unconsumedPromises.shift()
   if (promise && this.fifo.node) {

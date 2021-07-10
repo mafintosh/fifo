@@ -13,12 +13,12 @@ declare class Node<T = any> {
 declare function FIFO<T = any>(): FIFO<T>
 
 declare class FIFO<T = any> implements AsyncIterable<T> {
-  [Symbol.asyncIterator](): Iterator<T>
+  [Symbol.asyncIterator](): FifoAsyncIterator<T>
 
   /** Contains the first node on the list */
   node: Node<T>
 
-  iterator: null|Iterator<T>
+  asyncIterator: null|FifoAsyncIterator<T>
 
   /** Number of nodes in the list */
   length: number
@@ -94,7 +94,7 @@ type PromiseExecutor<T> = {
   reject: (reason?: unknown) => void
 }
 
-declare class Iterator<T> implements AsyncIterator<T, void> {
+declare class FifoAsyncIterator<T> implements AsyncIterator<T, void> {
   /** Reference to the fifo being iterated */
   fifo: FIFO<T>
 
