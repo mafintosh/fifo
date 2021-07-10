@@ -133,7 +133,7 @@ test('async iteration', async function (t) {
   t.equal(result.value, null)
   t.equal(result.done, false)
 
-  fifo.iterator.return()
+  fifo.asyncIterator.return()
   fifo.push('bar')
   promise = iterator.next()
   result = await promise
